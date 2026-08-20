@@ -88,14 +88,14 @@
 - [ ] 8.4 Deploy the Cloud Run Job using the attached service account with no key file, and verify a manual execution writes one observation
 - [ ] 8.5 Create the Cloud Scheduler trigger at the five-minute cadence, and verify three consecutive scheduled executions produce three distinct sequential sample documents
 - [ ] 8.6 Verify runtime logs appear in Cloud Logging and that a stored observation can be traced to its originating log records by sample ID
-- [ ] 8.7 Record the deployment topology evaluation against cost, reliability, cadence, credential handling, restart behavior, observability, and rate limits, and verify the rationale is captured in the documentation
+- [x] 8.7 Record the deployment topology evaluation against cost, reliability, cadence, credential handling, restart behavior, observability, and rate limits, and verify the rationale is captured in the documentation
 
 ## 9. Documentation and closeout
 
-- [ ] 9.1 Write the operations documentation covering project and database creation, local credentials, PAT and client ID setup, discovery, every environment variable, local and deployed execution, the stored data model, inspection commands, collector health, and rate-limit behavior; verify a reader can operate the system from it alone
-- [ ] 9.2 Document interval and delta semantics, day-rollover reconciliation, the quality model, and idempotency behavior, and verify each documented status and flag matches the implemented closed sets
-- [ ] 9.3 Document known device and API limitations — no instantaneous power property, the SDK's eager MQTT imports, the `date.today()` coupling avoided, invisible HTTP status, and any properties this model does not expose — and verify each is traceable to a discovery finding or design decision
-- [ ] 9.4 Document the projected storage growth and the deferred archival options, stating that raw observations are never deleted in place
-- [ ] 9.5 Record MQTT/event subscription as a future enhancement explicitly not required by this change, and verify it is not referenced as a dependency anywhere in the implementation
-- [ ] 9.6 Run `openspec validate add-lg-aircon-telemetry-poller --strict` and verify it passes
+- [x] 9.1 Write the operations documentation covering project and database creation, local credentials, PAT and client ID setup, discovery, every environment variable, local and deployed execution, the stored data model, inspection commands, collector health, and rate-limit behavior; verify a reader can operate the system from it alone
+- [x] 9.2 Document interval and delta semantics, day-rollover reconciliation, the quality model, and idempotency behavior, and verify each documented status and flag matches the implemented closed sets
+- [x] 9.3 Document known device and API limitations — no instantaneous power property, the SDK's eager MQTT imports, the `date.today()` coupling avoided, invisible HTTP status, and any properties this model does not expose — and verify each is traceable to a discovery finding or design decision
+- [x] 9.4 Document the projected storage growth and the deferred archival options, stating that raw observations are never deleted in place
+- [x] 9.5 Record MQTT/event subscription as a future enhancement explicitly not required by this change, and verify it is not referenced as a dependency anywhere in the implementation
+- [x] 9.6 Run `openspec validate add-lg-aircon-telemetry-poller --strict` and verify it passes
 - [ ] 9.7 Confirm the collector has run unattended for at least 24 hours across a midnight boundary, and verify the series contains a resolved or explicitly unresolved rollover sample and no negative interval
