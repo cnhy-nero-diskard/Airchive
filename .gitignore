@@ -1,0 +1,32 @@
+# --- Credentials: never commit any of these ---
+.env
+.env.*
+!.env.example
+*-key.json
+*_key.json
+*key*.json
+*credential*.json
+*credentials*.json
+service-account*.json
+application_default_credentials.json
+secrets/
+*.pem
+*.p12
+
+# --- Python ---
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# --- Editors / OS ---
+.DS_Store
+Thumbs.db

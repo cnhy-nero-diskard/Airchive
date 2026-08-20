@@ -1,14 +1,14 @@
 ## 1. Repository and project skeleton
 
-- [ ] 1.1 Create the Python project skeleton (Python 3.12+, `pyproject.toml`, `src/` layout, package name) and verify `pip install -e .` succeeds in a clean virtual environment
-- [ ] 1.2 Add runtime dependencies `thinqconnect` and `google-cloud-firestore`, plus dev dependencies for testing and linting, and verify `python -c "from thinqconnect.thinq_api import ThinQApi"` succeeds
-- [ ] 1.3 Add `.gitignore` covering credential files, `.env`, and virtual environments, and verify `git status --ignored` shows a placeholder `.env` and a placeholder `*.json` key as ignored
-- [ ] 1.4 Add `.env.example` enumerating every supported variable (`LG_THINQ_PAT`, `LG_COUNTRY_CODE`, `LG_CLIENT_ID`, `LG_DEVICE_ID`, `LG_ENERGY_PROPERTY`, `FIREBASE_PROJECT_ID`, `POLL_INTERVAL_SECONDS`, `LG_DAY_TIMEZONE`, `LOG_LEVEL`, and local-only `GOOGLE_APPLICATION_CREDENTIALS`) with no real secrets, and verify by grepping the file for any value resembling a token
-- [ ] 1.5 Add the CLI entry point with subcommand stubs (`discover`, `validate-counter`, `check-firestore`, `poll`, `latest`, `health`, `anomalies`, `compare`) and verify `--help` lists all of them
+- [x] 1.1 Create the Python project skeleton (Python 3.12+, `pyproject.toml`, `src/` layout, package name) and verify `pip install -e .` succeeds in a clean virtual environment
+- [x] 1.2 Add runtime dependencies `thinqconnect` and `google-cloud-firestore`, plus dev dependencies for testing and linting, and verify `python -c "from thinqconnect.thinq_api import ThinQApi"` succeeds
+- [x] 1.3 Add `.gitignore` covering credential files, `.env`, and virtual environments, and verify `git status --ignored` shows a placeholder `.env` and a placeholder `*.json` key as ignored
+- [x] 1.4 Add `.env.example` enumerating every supported variable (`LG_THINQ_PAT`, `LG_COUNTRY_CODE`, `LG_CLIENT_ID`, `LG_DEVICE_ID`, `LG_ENERGY_PROPERTY`, `FIREBASE_PROJECT_ID`, `POLL_INTERVAL_SECONDS`, `LG_DAY_TIMEZONE`, `LOG_LEVEL`, and local-only `GOOGLE_APPLICATION_CREDENTIALS`) with no real secrets, and verify by grepping the file for any value resembling a token
+- [x] 1.5 Add the CLI entry point with subcommand stubs (`discover`, `validate-counter`, `check-firestore`, `poll`, `latest`, `health`, `anomalies`, `compare`) and verify `--help` lists all of them
 
 ## 2. Firebase environment — operator-gated
 
-- [ ] 2.1 Write the setup guide covering Firebase project creation (suggested `lg-ac-telemetry`), enabling Cloud Firestore Standard, and region selection, stating explicitly that the region is permanent once created; verify the guide is committed and a reader can follow it without prior context
+- [x] 2.1 Write the setup guide covering Firebase project creation (suggested `lg-ac-telemetry`), enabling Cloud Firestore Standard, and region selection, stating explicitly that the region is permanent once created; verify the guide is committed and a reader can follow it without prior context
 - [ ] 2.2 Walk the operator through creating the project and database per the guide, and verify the database is visible in the Firebase Console
 - [ ] 2.3 Set Firestore client security rules to deny all client access and verify a client-side read attempt is rejected while server-side Admin access still succeeds
 - [ ] 2.4 Document and perform local Application Default Credentials setup (`gcloud auth application-default login`), with a documented escape hatch and revocation steps for `GOOGLE_APPLICATION_CREDENTIALS`; verify no key file exists inside the repository
@@ -17,12 +17,12 @@
 
 ## 3. ThinQ access and discovery — findings-gated
 
-- [ ] 3.1 Document obtaining the ThinQ Personal Access Token, determining the country code, and generating the client ID exactly once; verify the guide states the client ID is persisted and reused, never regenerated per run
-- [ ] 3.2 Implement configuration loading and startup validation that fails with a message naming every missing or malformed value and emits no secrets; verify unit tests cover missing PAT, missing client ID, and malformed interval
-- [ ] 3.3 Implement the sanitizing SDK boundary converting `ThinQAPIException`, `aiohttp` errors, and timeouts into an internal failure type carrying only failure class, code, error name, and safe message; verify a test using a sentinel PAT asserts the token appears in no rendered log record or serialized failure
-- [ ] 3.4 Implement the failure classification table from design D3 over ThinQ error codes; verify unit tests map `1306`, `1103`, `1222`, `2210`, `1219`, a non-JSON body, and a timeout to their expected classes
+- [x] 3.1 Document obtaining the ThinQ Personal Access Token, determining the country code, and generating the client ID exactly once; verify the guide states the client ID is persisted and reused, never regenerated per run
+- [x] 3.2 Implement configuration loading and startup validation that fails with a message naming every missing or malformed value and emits no secrets; verify unit tests cover missing PAT, missing client ID, and malformed interval
+- [x] 3.3 Implement the sanitizing SDK boundary converting `ThinQAPIException`, `aiohttp` errors, and timeouts into an internal failure type carrying only failure class, code, error name, and safe message; verify a test using a sentinel PAT asserts the token appears in no rendered log record or serialized failure
+- [x] 3.4 Implement the failure classification table from design D3 over ThinQ error codes; verify unit tests map `1306`, `1103`, `1222`, `2210`, `1219`, a non-JSON body, and a timeout to their expected classes
 - [ ] 3.5 Implement `discover` listing devices once, identifying air-conditioner candidates with identifier, alias, model name, and type, and reporting device profile, energy profile, current state, and today's daily usage; verify it runs read-only against the real account and issues no control command
-- [ ] 3.6 Add startup validation of the configured energy property against `energy_profile["result"]["property"]`, and verify an unsupported property fails startup with a message naming the supported ones
+- [x] 3.6 Add startup validation of the configured energy property against `energy_profile["result"]["property"]`, and verify an unsupported property fails startup with a message naming the supported ones
 - [ ] 3.7 Implement `validate-counter` sampling the current-day value repeatedly and reporting the observed sequence, whether it advances intraday, apparent update latency, and numeric precision; verify it issues no control command
 - [ ] 3.8 Run `validate-counter` across several hours of normal air-conditioner use and record the findings
 - [ ] 3.9 Determine the effective LG day boundary from observed counter resets plus any timezone the API exposes, and verify the finding is recorded and any mismatch with `LG_DAY_TIMEZONE` is reported to the operator

@@ -1,0 +1,14 @@
+rules_version = '2';
+
+// Airchive telemetry is written and read exclusively by the server-side
+// collector using Admin/IAM credentials, which bypass these rules entirely.
+// There is no frontend, so every direct client path is closed. Do not open
+// these rules to "make testing easier" — the console and the `airchive`
+// inspection commands both work with them closed.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
