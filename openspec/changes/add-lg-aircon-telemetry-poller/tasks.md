@@ -31,18 +31,18 @@
 
 ## 4. Observation model
 
-- [ ] 4.1 Implement the observation data model with the three-part quality representation from design D5 (`quality.intervalStatus`, `quality.flags`, per-source `source.energy`/`source.state`), and verify a test asserts two independent conditions can coexist without displacing each other
-- [ ] 4.2 Implement `Decimal`-based energy parsing and quantization to the validated precision, and verify a test asserts `8.751 − 8.732` yields exactly `0.019` with no float artifact
-- [ ] 4.3 Implement same-day delta calculation using actual `observedAt` timestamps for duration, and verify tests cover the normal increment (2.100 → 2.150 = 0.050) and the unchanged counter (2.100 → 2.100 = 0, flagged `UNCHANGED_COUNTER`)
-- [ ] 4.4 Implement baseline handling, and verify tests distinguish `NEW_BASELINE` (no prior observation ever) from `MISSING_PREVIOUS_SAMPLE` (prior observation without usable energy), both yielding a null interval with the raw value retained
-- [ ] 4.5 Implement coarse-interval handling for missed cycles, and verify a test asserts 12:00 → 12:15 (2.100 → 2.190) yields 0.090 over ~900 seconds marked `COARSE_INTERVAL`, never the nominal 300 seconds
-- [ ] 4.6 Implement same-day decrease handling, and verify a test asserts 3.500 → 3.200 yields a null interval with `ANOMALOUS_DECREASE` and both raw values retained
-- [ ] 4.7 Implement day-rollover detection against the validated day boundary, and verify a test asserts 8.732 → 0.021 across midnight never produces a negative interval
-- [ ] 4.8 Implement cross-midnight reconstruction `(finalPrevious − previousDaily) + currentDaily` guarded by `finalPrevious >= previousDaily`, and verify a test asserts 8.732 / 8.751 / 0.021 yields exactly 0.040 marked `DAY_ROLLOVER_RESOLVED`
-- [ ] 4.9 Implement unresolved-rollover handling when the finalized total is unavailable or implausible, and verify tests assert a null interval with `DAY_ROLLOVER_UNRESOLVED`, and `IMPLAUSIBLE_FINAL_TOTAL` when the guard fails
-- [ ] 4.10 Implement multi-day-gap handling, and verify a test asserts no reconstruction is attempted across more than one day boundary and the status is `MULTI_DAY_GAP` with the raw value retained
-- [ ] 4.11 Implement partial-success handling for independent energy and state outcomes, and verify tests cover energy-ok/state-failed, state-ok/energy-failed, and both-failed with no fabricated values and no carrying forward of prior state
-- [ ] 4.12 Implement state normalization preserving every readable property this device exposes, including the temperature unit, without inventing absent properties; verify a test asserts absent profile properties are omitted rather than defaulted
+- [x] 4.1 Implement the observation data model with the three-part quality representation from design D5 (`quality.intervalStatus`, `quality.flags`, per-source `source.energy`/`source.state`), and verify a test asserts two independent conditions can coexist without displacing each other
+- [x] 4.2 Implement `Decimal`-based energy parsing and quantization to the validated precision, and verify a test asserts `8.751 − 8.732` yields exactly `0.019` with no float artifact
+- [x] 4.3 Implement same-day delta calculation using actual `observedAt` timestamps for duration, and verify tests cover the normal increment (2.100 → 2.150 = 0.050) and the unchanged counter (2.100 → 2.100 = 0, flagged `UNCHANGED_COUNTER`)
+- [x] 4.4 Implement baseline handling, and verify tests distinguish `NEW_BASELINE` (no prior observation ever) from `MISSING_PREVIOUS_SAMPLE` (prior observation without usable energy), both yielding a null interval with the raw value retained
+- [x] 4.5 Implement coarse-interval handling for missed cycles, and verify a test asserts 12:00 → 12:15 (2.100 → 2.190) yields 0.090 over ~900 seconds marked `COARSE_INTERVAL`, never the nominal 300 seconds
+- [x] 4.6 Implement same-day decrease handling, and verify a test asserts 3.500 → 3.200 yields a null interval with `ANOMALOUS_DECREASE` and both raw values retained
+- [x] 4.7 Implement day-rollover detection against the validated day boundary, and verify a test asserts 8.732 → 0.021 across midnight never produces a negative interval
+- [x] 4.8 Implement cross-midnight reconstruction `(finalPrevious − previousDaily) + currentDaily` guarded by `finalPrevious >= previousDaily`, and verify a test asserts 8.732 / 8.751 / 0.021 yields exactly 0.040 marked `DAY_ROLLOVER_RESOLVED`
+- [x] 4.9 Implement unresolved-rollover handling when the finalized total is unavailable or implausible, and verify tests assert a null interval with `DAY_ROLLOVER_UNRESOLVED`, and `IMPLAUSIBLE_FINAL_TOTAL` when the guard fails
+- [x] 4.10 Implement multi-day-gap handling, and verify a test asserts no reconstruction is attempted across more than one day boundary and the status is `MULTI_DAY_GAP` with the raw value retained
+- [x] 4.11 Implement partial-success handling for independent energy and state outcomes, and verify tests cover energy-ok/state-failed, state-ok/energy-failed, and both-failed with no fabricated values and no carrying forward of prior state
+- [x] 4.12 Implement state normalization preserving every readable property this device exposes, including the temperature unit, without inventing absent properties; verify a test asserts absent profile properties are omitted rather than defaulted
 
 ## 5. Persistence
 
