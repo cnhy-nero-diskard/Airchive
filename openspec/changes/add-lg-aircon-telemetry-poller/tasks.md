@@ -74,11 +74,11 @@
 
 ## 7. Operator tooling
 
-- [ ] 7.1 Implement `latest` listing recent observations in reverse time order with sample ID, observation time, raw value, interval and duration, interval status, and source outcomes; verify against seeded data
-- [ ] 7.2 Implement `health` reporting the current collector health record, and verify it reflects a seeded failure state including consecutive failures and last error class
-- [ ] 7.3 Implement `anomalies` returning observations whose interval status or flags indicate a problem over a requested range, and verify it surfaces seeded `ANOMALOUS_DECREASE` and `DAY_ROLLOVER_UNRESOLVED` records
-- [ ] 7.4 Implement `compare` diffing the latest stored observation against a fresh live reading, and verify it performs no write to the telemetry series
-- [ ] 7.5 Verify all operator command output is free of tokens and credentials by running each subcommand with a sentinel PAT and grepping the output
+- [x] 7.1 Implement `latest` listing recent observations in reverse time order with sample ID, observation time, raw value, interval and duration, interval status, and source outcomes; verify against seeded data
+- [x] 7.2 Implement `health` reporting the current collector health record, and verify it reflects a seeded failure state including consecutive failures and last error class
+- [x] 7.3 Implement `anomalies` returning observations whose interval status or flags indicate a problem over a requested range, and verify it surfaces seeded `ANOMALOUS_DECREASE` and `DAY_ROLLOVER_UNRESOLVED` records
+- [x] 7.4 Implement `compare` diffing the latest stored observation against a fresh live reading, and verify it performs no write to the telemetry series
+- [x] 7.5 Verify all operator command output is free of tokens and credentials by running each subcommand with a sentinel PAT and grepping the output
 
 ## 8. Deployment
 

@@ -170,6 +170,37 @@ def load_discovery_config(
     )
 
 
+def load_inspection_config(
+    environ: dict[str, str] | None = None,
+) -> tuple[str, str, ZoneInfo, str]:
+    """Validate only what the read-only inspection commands need.
+
+    They read stored telemetry, so they want the project and the device — not
+    ThinQ credentials.
+    """
+    env = os.environ if environ is None else environ
+    problems: list[str] = []
+
+    project_id = _require(env, "FIREBASE_PROJECT_ID", problems)
+    device_id = _require(env, "LG_DEVICE_ID", problems, "Take it from `airchive discover`.")
+
+    tz_name = _get(env, "LG_DAY_TIMEZONE") or DEFAULT_DAY_TIMEZONE
+    tz: ZoneInfo | None = None
+    try:
+        tz = ZoneInfo(tz_name)
+    except (ZoneInfoNotFoundError, ValueError):
+        problems.append(
+            f"LG_DAY_TIMEZONE must be a valid IANA timezone name, got "
+            f"{_describe('LG_DAY_TIMEZONE', tz_name)}."
+        )
+
+    if problems:
+        raise ConfigError(problems)
+
+    assert tz is not None
+    return project_id, device_id, tz, tz_name
+
+
 def load_config(environ: dict[str, str] | None = None) -> CollectorConfig:
     """Validate the full collector configuration, reporting every problem at once."""
     env = os.environ if environ is None else environ

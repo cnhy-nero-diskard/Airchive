@@ -104,6 +104,17 @@ def main(argv: Sequence[str] | None = None) -> int:
             duration_minutes=args.duration_minutes, interval_seconds=args.interval_seconds
         )
 
+    if args.command in ("latest", "health", "anomalies", "compare"):
+        from airchive.commands import views
+
+        if args.command == "latest":
+            return views.latest(limit=args.limit)
+        if args.command == "health":
+            return views.health()
+        if args.command == "anomalies":
+            return views.anomalies(since=args.since, until=args.until, limit=args.limit)
+        return views.compare()
+
     if args.command == "poll":
         from airchive.commands import poll as poll_cmd
 
