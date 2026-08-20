@@ -30,3 +30,9 @@ htmlcov/
 # --- Editors / OS ---
 .DS_Store
 Thumbs.db
+
+# Firebase emulator artifacts
+firestore-debug.log
+firebase-debug.log
+ui-debug.log
+.firebase/

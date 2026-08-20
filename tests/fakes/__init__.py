@@ -4,6 +4,13 @@ They exist so every behavior in the specs — deltas, classification, idempotenc
 recovery, backoff — is verifiable with no live credentials and no real device.
 """
 
+from tests.fakes.firestore import FakeFirestoreClient, FakeSnapshot
 from tests.fakes.thinq import FakeThinqApi, sequence, thinq_api_exception
 
-__all__ = ["FakeThinqApi", "sequence", "thinq_api_exception"]
+__all__ = [
+    "FakeFirestoreClient",
+    "FakeSnapshot",
+    "FakeThinqApi",
+    "sequence",
+    "thinq_api_exception",
+]

@@ -1,0 +1,25 @@
+{
+  "indexes": [],
+  "fieldOverrides": [
+    {
+      "collectionGroup": "telemetry",
+      "fieldPath": "raw",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "dailyTotals",
+      "fieldPath": "raw",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "metadata",
+      "fieldPath": "profile",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "metadata",
+      "fieldPath": "energyProfile",
+      "indexes": []
+    }
+  ]
+}

@@ -46,17 +46,17 @@
 
 ## 5. Persistence
 
-- [ ] 5.1 Implement the Firestore layout from design D8 (`telemetry`, `dailyTotals`, `metadata`, `runtime`) and verify documents land at the expected paths against the Firestore emulator or a scratch collection
-- [ ] 5.2 Implement UTC-floored slot sample IDs, and verify a test asserts the 17:15 Asia/Manila slot yields `20260820T091500Z` and that IDs sort lexicographically in chronological order
-- [ ] 5.3 Implement transactional idempotent writes with completeness precedence per design D7, and verify tests assert: repeated execution of one slot creates exactly one document; a more complete retry upgrades it; an equal retry is a no-op; a less complete late write is refused
-- [ ] 5.4 Store `scheduledAt`, `observedAt`, and `persistedAt` as native Firestore timestamps plus `localDate` and the timezone used, and verify a range query over `observedAt` and a grouping by `localDate` both work
-- [ ] 5.5 Implement raw payload retention (`raw.energy`, `raw.state`) excluding all credential material, and verify a test asserts no authorization header or token is present in a persisted document
+- [x] 5.1 Implement the Firestore layout from design D8 (`telemetry`, `dailyTotals`, `metadata`, `runtime`) and verify documents land at the expected paths against the Firestore emulator or a scratch collection
+- [x] 5.2 Implement UTC-floored slot sample IDs, and verify a test asserts the 17:15 Asia/Manila slot yields `20260820T091500Z` and that IDs sort lexicographically in chronological order
+- [x] 5.3 Implement transactional idempotent writes with completeness precedence per design D7, and verify tests assert: repeated execution of one slot creates exactly one document; a more complete retry upgrades it; an equal retry is a no-op; a less complete late write is refused
+- [x] 5.4 Store `scheduledAt`, `observedAt`, and `persistedAt` as native Firestore timestamps plus `localDate` and the timezone used, and verify a range query over `observedAt` and a grouping by `localDate` both work
+- [x] 5.5 Implement raw payload retention (`raw.energy`, `raw.state`) excluding all credential material, and verify a test asserts no authorization header or token is present in a persisted document
 - [ ] 5.6 Configure the single-field index exemption on `raw` with array and map descent disabled, commit the index configuration, and verify the exemption is active in the Firestore console
-- [ ] 5.7 Implement the bounded descending previous-reading lookup per design D12, and verify tests cover finding a usable baseline, skipping an unusable most-recent observation, and exhausting the window
-- [ ] 5.8 Implement versioned profile metadata caching separate from the observation series, and verify an observation embeds no full profile while referencing the active metadata version
-- [ ] 5.9 Implement the `dailyTotals` cache for finalized per-day totals, and verify a test asserts the finalized total is fetched once per day and reused rather than re-requested per cycle
-- [ ] 5.10 Implement the mutable collector health record (last attempt, last success, last sample, last error and class, consecutive failures, collector version), and verify it is overwritten in place, never appended to the series, and that the failure counter resets on success
-- [ ] 5.11 Implement bounded deferred reconciliation via `runtime/reconciliation`, and verify tests assert an unresolved rollover is filled in when the finalized total arrives, is marked `RECONCILED` without altering stored raw values, and is abandoned after the 24-hour window
+- [x] 5.7 Implement the bounded descending previous-reading lookup per design D12, and verify tests cover finding a usable baseline, skipping an unusable most-recent observation, and exhausting the window
+- [x] 5.8 Implement versioned profile metadata caching separate from the observation series, and verify an observation embeds no full profile while referencing the active metadata version
+- [x] 5.9 Implement the `dailyTotals` cache for finalized per-day totals, and verify a test asserts the finalized total is fetched once per day and reused rather than re-requested per cycle
+- [x] 5.10 Implement the mutable collector health record (last attempt, last success, last sample, last error and class, consecutive failures, collector version), and verify it is overwritten in place, never appended to the series, and that the failure counter resets on success
+- [x] 5.11 Implement bounded deferred reconciliation via `runtime/reconciliation`, and verify tests assert an unresolved rollover is filled in when the finalized total arrives, is marked `RECONCILED` without altering stored raw values, and is abandoned after the 24-hour window
 
 ## 6. Runtime
 
