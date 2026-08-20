@@ -216,11 +216,19 @@ def extract_energy_reading(
     chosen: dict[str, Any] | None = None
     if day_label:
         wanted = day_label.replace("-", "")
+        labelled = False
         for record in records:
             label = _record_date(record)
-            if label and label.replace("-", "") == wanted:
-                chosen = record
-                break
+            if label:
+                labelled = True
+                if label.replace("-", "") == wanted:
+                    chosen = record
+                    break
+        if chosen is None and labelled:
+            # Records carry dates and none of them is the day we asked for.
+            # Returning another day's number here would silently mislabel it —
+            # and on the finalized-total path it would corrupt a rollover.
+            return None
     if chosen is None:
         chosen = records[-1]
 

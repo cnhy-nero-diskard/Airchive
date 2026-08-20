@@ -475,6 +475,37 @@ class TelemetryStore:
                 expired.append(sample_id)
         return sorted(expired)
 
+    def mark_implausible_final_total(
+        self, *, sample_id: str, final_previous_day_total: Decimal, now: datetime
+    ) -> bool:
+        """Record a finalized total that cannot be true, and stop reconstructing.
+
+        The spec requires the implausible value itself to be kept for later
+        inspection — an unresolved sample with no explanation is a worse record
+        than an unresolved sample that says what it was handed.
+        """
+        ref = self.observation_ref(sample_id)
+
+        def _txn(transaction) -> bool:
+            snapshot = ref.get(transaction=transaction)
+            if not snapshot.exists:
+                return False
+            existing = snapshot.to_dict() or {}
+            flags = list((existing.get("quality") or {}).get("flags") or [])
+            if str(QualityFlag.IMPLAUSIBLE_FINAL_TOTAL) not in flags:
+                flags.append(str(QualityFlag.IMPLAUSIBLE_FINAL_TOTAL))
+
+            update: dict[str, Any] = {"quality.flags": flags, "reconciliationClosedAt": now}
+            for key, value in decimal_fields(
+                "finalPreviousDayTotal", final_previous_day_total
+            ).items():
+                update[f"energy.{key}"] = value
+
+            transaction.update(ref, update)
+            return True
+
+        return self._run_transaction(_txn)
+
     def apply_reconciliation(
         self,
         *,

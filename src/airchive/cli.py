@@ -104,6 +104,11 @@ def main(argv: Sequence[str] | None = None) -> int:
             duration_minutes=args.duration_minutes, interval_seconds=args.interval_seconds
         )
 
+    if args.command == "poll":
+        from airchive.commands import poll as poll_cmd
+
+        return poll_cmd.run(once=args.once)
+
     if args.command == "check-firestore":
         from airchive.commands import check_firestore
 

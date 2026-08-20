@@ -60,17 +60,17 @@
 
 ## 6. Runtime
 
-- [ ] 6.1 Implement the polling cycle orchestration issuing exactly one energy request and one state request per cycle, and verify a test asserts no device-list, device-profile, or energy-profile call occurs on a routine cycle with warm metadata
-- [ ] 6.2 Implement bounded retries with exponential backoff and jitter, explicit per-request timeouts, and a total budget that keeps a cycle inside its interval; verify tests assert bounded attempts and that no tight retry loop occurs
-- [ ] 6.3 Implement rate-limit backoff on the `RATE_LIMITED` class, and verify a test asserts bounded backoff with jitter, the `RATE_LIMITED` flag on the sample, and reduced effective request rate under sustained limiting
-- [ ] 6.4 Implement fatal-condition handling so `AUTH_FATAL` and `CONFIG_FATAL` consume no retries and surface distinctly in health, and verify a test asserts a revoked token is not retried with backoff
-- [ ] 6.5 Implement cycle-level error containment so a malformed response, unexpected exception, or Firestore failure ends only that cycle; verify a test asserts the process survives and the next cycle proceeds
-- [ ] 6.6 Implement restart and stateless-invocation recovery reconstructing the previous reading from Firestore, and verify tests assert 4.210 → 4.370 across a gap yields 0.160 over the actual elapsed duration marked `COARSE_INTERVAL`, and that a prior-day baseline routes to rollover handling
-- [ ] 6.7 Implement the advisory lease preventing overlapping cycles per design D14, and verify a test asserts a second concurrent cycle exits without writing
-- [ ] 6.8 Implement graceful shutdown leaving no partial observation, and verify a test asserts a termination signal mid-cycle produces either a complete record or none
-- [ ] 6.9 Implement structured logging with the sample ID as correlation identifier carrying all fields required by the runtime spec, and verify a test asserts every required field is present and no secret is
-- [ ] 6.10 Add a test asserting the energy request path succeeds with the process clock in UTC while requesting a Manila-local date, proving the low-level `ThinQApi` choice avoids the SDK's `date.today()` coupling
-- [ ] 6.11 Implement test doubles for the ThinQ API and Firestore so all behavior above is verifiable without live credentials, and verify the full suite passes offline
+- [x] 6.1 Implement the polling cycle orchestration issuing exactly one energy request and one state request per cycle, and verify a test asserts no device-list, device-profile, or energy-profile call occurs on a routine cycle with warm metadata
+- [x] 6.2 Implement bounded retries with exponential backoff and jitter, explicit per-request timeouts, and a total budget that keeps a cycle inside its interval; verify tests assert bounded attempts and that no tight retry loop occurs
+- [x] 6.3 Implement rate-limit backoff on the `RATE_LIMITED` class, and verify a test asserts bounded backoff with jitter, the `RATE_LIMITED` flag on the sample, and reduced effective request rate under sustained limiting
+- [x] 6.4 Implement fatal-condition handling so `AUTH_FATAL` and `CONFIG_FATAL` consume no retries and surface distinctly in health, and verify a test asserts a revoked token is not retried with backoff
+- [x] 6.5 Implement cycle-level error containment so a malformed response, unexpected exception, or Firestore failure ends only that cycle; verify a test asserts the process survives and the next cycle proceeds
+- [x] 6.6 Implement restart and stateless-invocation recovery reconstructing the previous reading from Firestore, and verify tests assert 4.210 → 4.370 across a gap yields 0.160 over the actual elapsed duration marked `COARSE_INTERVAL`, and that a prior-day baseline routes to rollover handling
+- [x] 6.7 Implement the advisory lease preventing overlapping cycles per design D14, and verify a test asserts a second concurrent cycle exits without writing
+- [x] 6.8 Implement graceful shutdown leaving no partial observation, and verify a test asserts a termination signal mid-cycle produces either a complete record or none
+- [x] 6.9 Implement structured logging with the sample ID as correlation identifier carrying all fields required by the runtime spec, and verify a test asserts every required field is present and no secret is
+- [x] 6.10 Add a test asserting the energy request path succeeds with the process clock in UTC while requesting a Manila-local date, proving the low-level `ThinQApi` choice avoids the SDK's `date.today()` coupling
+- [x] 6.11 Implement test doubles for the ThinQ API and Firestore so all behavior above is verifiable without live credentials, and verify the full suite passes offline
 
 ## 7. Operator tooling
 
